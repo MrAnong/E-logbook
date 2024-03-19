@@ -1,0 +1,142 @@
+********** STUDENT ENDPOINTS **********
+
+	//1- to get a single student record
+	/api/student/{matricule}
+
+	//2- to get all the students
+	/api/student
+	
+	//3- to save a single student record
+	/api/student
+	
+	//4- to save a list of students
+	/api/student/{studentList}
+	
+	//5- to delete a single student record
+	/api/student/{matricule}
+	
+	//6- to delete a list of student records
+	/api/student/{studentlist}
+	
+	//7- to update a student record
+	/api/student
+	
+	
+********** TEACHER ENDPOINTS **********
+
+	//1- to get a single teacher record
+	/api/teacher/{id}
+	
+	//2- to get all the teachers
+	/api/teacher
+	
+	//3- to save a single teacher record
+	/api/teacher
+	
+	//4- to save a list of teachers
+	/api/teacher/{teacherList}
+	
+	//5- to delete a single teacher record
+	/api/teacher/{id}
+	
+	//6- to delete a list of teacher records
+	/apiteacher/{teacherList}
+	
+	//7- to update a teacher record
+	/api/teacher
+	
+	
+********** CLASSROOM ENDPOINTS **********
+	
+	//1- to get a single classroom record
+	/api/classroom/{id}
+	
+	//2- to get all the classrooms
+	/api/classroom
+	
+	//3- to save a single classroom record
+	/api/classroom
+	
+	//4- to save a list of classrooms
+	/api/classroom/{classroomList}
+	
+	//5- to delete a single classroom record
+	/api/classroom/{id}
+	
+	//6- to delete a list of classroom records
+	/api/classroom/{classroomList}
+	
+	//7- to update a classroom record
+	/api/classroom
+	
+
+********** LOGBOOK ENDPOINTS **********
+
+	//1- path to get a single logbook record
+	/api/logbook/{id}
+	
+	//2- to get a list of all the logbooks
+	/api/logbook
+	
+	//3- to save a single logbook record
+	/api/logbook
+	
+	//4- to save a list of logbooks
+	/api/logbook/{logbookList}
+	
+	//5- to delete a single logbook record
+	/api/logbook/{id}
+	
+	//6- to delete a list of logbooks
+	/api/logbook/{logbookList}
+	
+	/7- to update a logbook record
+	/api/logbook
+	
+	
+********** SUBJECT ENDPOINTS **********
+
+	//1- to get a single subject record
+	/api/subject/{code}
+	
+	//2- to get all the subjects
+	/api/subject
+	
+	//3- to save a single subject record
+	/api/subject
+	
+	//4- to save a list of subjects
+	/api/subject/{subjectList}
+	
+	//5- to delete a single student record
+	/api/subject/{code}
+	
+	//6- to delete a list of subject records
+	/api/subject/{subjectlist}
+	
+	//7- to update a subject record
+	/api/subject
+	
+	
+********** ROLLCALL ENDPOINTS **********
+
+	//1- to get a single rollcall record
+	/api/rollcall/{id}
+	
+	//2- to get all the rollcall records
+	/api/rollcall
+	
+	/3- to save a single rollcall record
+	/api/rollcall/{matricule}
+	
+	//4- to save a list of rollcall records
+	/api/rollcall/{studentList}
+	
+	//5- to delete a single rollcall record
+	/api/rollcall/{id}
+	
+	//6- to delete a list of rollcall records
+	/api/rollcall/{rollcallList}
+	
+	//7- to update a single rollcall record
+	/api/rollcall
