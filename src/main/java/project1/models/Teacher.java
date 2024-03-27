@@ -1,12 +1,17 @@
 package project1.models;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,13 +32,15 @@ public class Teacher {
 	@Column
 	private String town;
 	@Column
-	private String email;
-	@Column
 	private String pNumber;
 	@Column
 	private String gender;
 	@Column
-	private String role;
+	private String email;
+	@Column
+	private String password;
+	@Column
+	private String role = "standard";
 	
 	
 	public Teacher() {
@@ -103,6 +110,16 @@ public class Teacher {
 		return gender;
 	}
 	
+	
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
@@ -115,6 +132,17 @@ public class Teacher {
 		this.role = role;
 	}
 	
+	@OneToMany(mappedBy = "teacher")
+	private List<Student> studentsUpgraded;
+	
+	@OneToMany(mappedBy = "teacher")
+	private List<Subject> subjctsTaught;
+	
+	@OneToMany(mappedBy = "teacher")
+	private List<Logbook> logbooksSigned;
+	
+	@ManyToMany(mappedBy = "teachers")
+	private Set<Authority> authorities = new HashSet<>();
 	
 
 }

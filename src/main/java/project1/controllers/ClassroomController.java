@@ -24,43 +24,43 @@ public class ClassroomController {
 	private ClassroomService classroomService;
 	
 	//1- to get a single classroom record
-	@GetMapping("/classroom/{id}")
-	public Optional<Classroom> getOne(@PathVariable int id) {
+	@GetMapping("/classroom/id")
+	public Optional<Classroom> getOne(@RequestBody int id) {
 		return classroomService.getOne(id);
 	}
 	
 	//2- to get all the classrooms
-	@GetMapping("/classroom")
+	@GetMapping("/classroom/getall")
 	public List<Classroom> getAll(){
 		return classroomService.getAll();
 	}
 	
 	//3- to save a single classroom record
-	@PostMapping("/classroom")
+	@PostMapping("/classroom/save")
 	public Classroom save(@RequestBody Classroom classroom) {
 		return classroomService.saveOne(classroom);
 	}
 	
 	//4- to save a list of classrooms
-	@PostMapping("/classroom/{classroomList}")
-		public List<Classroom> saveList(@PathVariable List<Classroom> classroomList){
+	@PostMapping("/classroom/savelist")
+		public List<Classroom> saveList(@RequestBody List<Classroom> classroomList){
 			return classroomService.saveList(classroomList);
 		}
 	
 	//5- to delete a single classroom record
-	@DeleteMapping("/classroom/{id}")
-	public Optional<Classroom> deleteOne(@PathVariable int id) {
+	@DeleteMapping("/classroom/delete")
+	public Optional<Classroom> deleteOne(@RequestBody int id) {
 		return classroomService.deleteOne(id);
 	}
 	
 	//6- to delete a list of classroom records
-	@DeleteMapping("/classroom/{classroomList}")
-	public Optional<List<Classroom>> deleteList(@PathVariable List<Classroom> classroomList){
+	@DeleteMapping("/classroom/deletelist")
+	public Optional<List<Classroom>> deleteList(@RequestBody List<Classroom> classroomList){
 		return classroomService.deleteList(classroomList);
 	}
 	
 	//7- to update a classroom record
-	@PutMapping("/classroom")
+	@PutMapping("/classroom/update")
 	public Optional<Classroom> updateOne(@RequestBody Classroom classroom){
 		return classroomService.updateOne(classroom);
 	}

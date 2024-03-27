@@ -12,5 +12,9 @@ public interface StudentRepository extends JpaRepository<Student, Long>{
 	Student findByMatricule(@Param(value = "matricule") String matricule);
 	
 	Student deleteByMatricule(@Param(value = "matricule") String matricule);
+	
+	Student findByEmail(@Param(value = "email") String email);
+	
+//	Student findByMatricule(String matricule);
 
 }

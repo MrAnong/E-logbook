@@ -1,12 +1,16 @@
 ********** STUDENT ENDPOINTS **********
-
+	
+	
+	//0- to log a student in
+	/api/student/{email}/{password}
+	
 	//1- to get a single student record
 	/api/student/{matricule}
 
 	//2- to get all the students
 	/api/student
 	
-	//3- to save a single student record
+	//3- to register a single student record
 	/api/student
 	
 	//4- to save a list of students

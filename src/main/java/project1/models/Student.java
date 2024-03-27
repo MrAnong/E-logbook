@@ -2,12 +2,20 @@ package project1.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,8 +23,7 @@ public class Student {
 	
 	@Id
 	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String matricule;
+	private String matricule = UUID.randomUUID().toString();
 	
 	@Column
 	private String fName;
@@ -29,16 +36,17 @@ public class Student {
 	@Column
 	private String town;
 	@Column
-	private String email;
-	@Column
 	private String pNumber;
 	@Column
 	private String gender;
 	@Column
+	private String email;
+	@Column
+	private String password;
+	@Column
 	private String role;
 	@Column
-	private LocalDateTime createdAt;
-	
+	private LocalDateTime createdAt = LocalDateTime.now();	
 	
 	
 	public Student() {
@@ -49,15 +57,15 @@ public class Student {
 		return matricule;
 	}
 	
-	public String getFname() {
+	public String getfName() {
 		return fName;
 	}
 	
-	public void setFname(String fname) {
+	public void setfName(String fname) {
 		this.fName = fname;
 	}
 	
-	public String getMname() {
+	public String getmName() {
 		return mName;
 	}
 	
@@ -65,7 +73,7 @@ public class Student {
 		this.mName = mName;
 	}
 	
-	public String getLname() {
+	public String getlName() {
 		return lName;
 	}
 	
@@ -113,6 +121,18 @@ public class Student {
 		this.gender = gender;
 	}
 	
+	
+	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	public String getRole() {
 		return role;
 	}
@@ -124,6 +144,26 @@ public class Student {
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
+	
+	@ManyToOne
+	@JoinColumn(name = "class_id", referencedColumnName = "id", nullable = true)
+	private Classroom classroom;
+	
+	@OneToOne(mappedBy = "student")
+	private Logbook logbook;
+	
+	@ManyToMany
+	@JoinTable( name = "students_subjects",
+				joinColumns = {@JoinColumn(name = "matricules", referencedColumnName = "matricule")},
+				inverseJoinColumns = {@JoinColumn(name = "subject_codes", referencedColumnName = "code")})
+	private Set<Subject> subjects = new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id", referencedColumnName = "id", nullable=true)
+	private Teacher teacher;
+	
+	@ManyToMany(mappedBy = "students")
+	private Set<Authority> authorities = new HashSet<>();
 	
 	
 

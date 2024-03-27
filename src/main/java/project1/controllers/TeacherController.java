@@ -26,43 +26,43 @@ public class TeacherController {
 	private TeacherService teacherService;
 	
 	//1- to get a single teacher record
-	@GetMapping("/teacher/{id}")
-	public Optional<Teacher> getOne(@PathVariable int id) {
+	@GetMapping("/teacher/id")
+	public Optional<Teacher> getOne(@RequestBody int id) {
 		return teacherService.getOne(id);
 	}
 	
 	//2- to get all the teachers
-	@GetMapping("/teacher")
+	@GetMapping("/teacher/getall")
 	public List<Teacher> getAll(){
 		return teacherService.getAll();
 	}
 	
 	//3- to save a single teacher record
-	@PostMapping("/teacher")
+	@PostMapping("/teacher/register")
 	public Teacher save(@RequestBody Teacher teacher) {
 		return teacherService.saveOne(teacher);
 	}
 	
 	//4- to save a list of teachers
-	@PostMapping("/teacher/{teacherList}")
-		public List<Teacher> saveList(@PathVariable List<Teacher> teacherList){
+	@PostMapping("/teacher/savelist")
+		public List<Teacher> saveList(@RequestBody List<Teacher> teacherList){
 			return teacherService.saveList(teacherList);
 		}
 	
 	//5- to delete a single teacher record
-	@DeleteMapping("/teacher/{id}")
-	public Optional<Teacher> deleteOne(@PathVariable int id) {
+	@DeleteMapping("/teacher/delete")
+	public Optional<Teacher> deleteOne(@RequestBody int id) {
 		return teacherService.deleteOne(id);
 	}
 	
 	//6- to delete a list of teacher records
-	@DeleteMapping("/teacher/{teacherList}")
-	public Optional<List<Teacher>> deleteList(@PathVariable List<Teacher> teacherList){
+	@DeleteMapping("/teacher/deletelist")
+	public Optional<List<Teacher>> deleteList(@RequestBody List<Teacher> teacherList){
 		return teacherService.deleteList(teacherList);
 	}
 	
 	//7- to update a teacher record
-	@PutMapping("/teacher")
+	@PutMapping("/teacher/update")
 	public Optional<Teacher> updateOne(@RequestBody Teacher teacher){
 		return teacherService.updateOne(teacher);
 	}

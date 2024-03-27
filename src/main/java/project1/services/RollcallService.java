@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
+import project1.data_transfer_objects.response_objects.StudentResponse;
 import project1.models.Rollcall;
 import project1.models.Student;
 import project1.repositories.RollcallRepository;
@@ -40,14 +41,14 @@ public class RollcallService {
 	//3- to save a single rollcall record
 	@Transactional
 	public  Rollcall saveOne(String matricule) {
-		Student student = studentService.getOne(matricule) ;
-		if(student == null) {
+		StudentResponse response = studentService.getOne(matricule) ;
+		if(response.getStudent() == null) {
 			return null;
 		}
-		String matricule1 = student.getMatricule();
-		String fName = student.getFname();
-		String mName = student.getMname();
-		String lName = student.getLname();
+		String matricule1 = response.getStudent().getMatricule();
+		String fName = response.getStudent().getfName();
+		String mName = response.getStudent().getmName();
+		String lName = response.getStudent().getlName();
 		
 		Rollcall rollcall = new Rollcall(matricule1, fName, mName, lName);
 		

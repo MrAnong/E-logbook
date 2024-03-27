@@ -24,43 +24,43 @@ public class SubjectController {
 	private SubjectService subjectService;
 	
 	//1- to get a single subject record
-	@GetMapping("/subject/{code}")
-	public Optional<Subject> getOne(@PathVariable String code){
+	@GetMapping("/subject/id")
+	public Optional<Subject> getOne(@RequestBody String code){
 		return subjectService.getOne(code);
 	}
 	
 	//2- to get all the subjects
-	@GetMapping("/subject")
+	@GetMapping("/subject/getall")
 	public List<Subject> getAll(){
 		return subjectService.getAll();
 	}
 	
 	//3- to save a single subject record
-	@PostMapping("/subject")
+	@PostMapping("/subjectsave")
 	public Subject saveOne(@RequestBody Subject subject) {
 		return subjectService.saveOne(subject);
 	}
 	
 	//4- to save a list of subjects
-	@PostMapping("/subject/{subjectList}")
-	public List<Subject> saveList(@PathVariable List<Subject> subjectList){
+	@PostMapping("/subjectsavelist")
+	public List<Subject> saveList(@RequestBody List<Subject> subjectList){
 		return subjectService.saveList(subjectList);
 	}
 	
 	//5- to delete a single student record
-	@DeleteMapping("/subject/{code}")
-	public Optional<Subject> deleteOne(@PathVariable String code){
+	@DeleteMapping("/subject/delete")
+	public Optional<Subject> deleteOne(@RequestBody String code){
 		return subjectService.deleteOne(code);
 	}
 	
 	//6- to delete a list of subject records
-	@DeleteMapping("/subject/{subjectlist}")
-	public Optional<List<Subject>> deleteList(@PathVariable List<Subject> subjectList){
+	@DeleteMapping("/subject/deletelist")
+	public Optional<List<Subject>> deleteList(@RequestBody List<Subject> subjectList){
 		return subjectService.deleteList(subjectList);
 	}
 	
 	//7- to update a subject record
-	@PutMapping("/subject")
+	@PutMapping("/subject/update")
 	public Optional<Subject> updateOne(@RequestBody Subject subject){
 		return subjectService.updateOne(subject);
 	}

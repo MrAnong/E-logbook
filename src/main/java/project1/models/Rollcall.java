@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -77,6 +79,10 @@ public class Rollcall {
 	public void setHours(int hours) {
 		this.hours = hours;
 	}
+	
+	@OneToOne
+	@JoinColumn(name = "class_id", referencedColumnName = "id", nullable=false)
+	private Classroom classroom;
 	
 	
 

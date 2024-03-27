@@ -25,44 +25,44 @@ public class RollcallController {
 	private RollcallService rollcallService;
 	
 	//1- to get a single rollcall record
-	@GetMapping("/rollcall/{id}")
-	public Optional<Rollcall> getOne(@PathVariable int id){
+	@GetMapping("/rollcall/id")
+	public Optional<Rollcall> getOne(@RequestBody int id){
 		return rollcallService.getOne(id);
 	}
 	
 	//2- to get all the rollcall records
-	@GetMapping("/rollcall")
+	@GetMapping("/rollcall/getall")
 	public List<Rollcall> getAll(){
 		return rollcallService.getAll();
 	}
 	
 	//3- to save a single rollcall record
-	@PostMapping("/rollcall/{matricule}")
-	public Rollcall saveOne(@PathVariable String matricule) {
+	@PostMapping("/rollcall/save")
+	public Rollcall saveOne(@RequestBody String matricule) {
 		return rollcallService.saveOne(matricule);
 	}
 	
 	
 	//4- to save a list of rollcall records
-	@PostMapping("/rollcall/{studentList}")
-	public List<Rollcall> saveList(@PathVariable List<Student> studentList){
+	@PostMapping("/rollcall/savelist")
+	public List<Rollcall> saveList(@RequestBody List<Student> studentList){
 		return rollcallService.saveList(studentList);
 	}
 	
 	//5- to delete a single rollcall record
-	@DeleteMapping("/rollcall/{id}")
-	public Optional<Rollcall> deleteOne(@PathVariable int id){
+	@DeleteMapping("/rollcall/delete")
+	public Optional<Rollcall> deleteOne(@RequestBody int id){
 		return rollcallService.deleteOne(id);
 	}
 	
 	//6- to delete a list of rollcall records
-	@DeleteMapping("/rollcall/{rollcallList}")
-	public Optional<List<Rollcall>> deleteList(@PathVariable List<Rollcall> rollcallList){
+	@DeleteMapping("/rollcall/deletelist")
+	public Optional<List<Rollcall>> deleteList(@RequestBody List<Rollcall> rollcallList){
 		return rollcallService.deleteList(rollcallList);
 	}
 	
 	//7- to update a single rollcall record
-	@PutMapping("/rollcall")
+	@PutMapping("/rollcall/update")
 	public Optional<Rollcall> updateOne(@RequestBody Rollcall rollcall){
 		return rollcallService.updateOne(rollcall);
 	}
