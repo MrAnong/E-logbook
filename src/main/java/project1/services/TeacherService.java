@@ -10,6 +10,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import project1.data_transfer_objects.UsersDetails;
+import project1.data_transfer_objects.response_objects.StudentResponse;
+import project1.data_transfer_objects.response_objects.TeacherResponse;
+import project1.models.Student;
 import project1.models.Teacher;
 import project1.repositories.TeacherRepository;
 import project1.utilities.constants.Roles;
@@ -30,12 +34,18 @@ public class TeacherService {
 	
 	@Transactional
 	//1- to get a single teacher by its id
-	public Optional<Teacher> getOne(int id) {
+	public TeacherResponse getOne(int id) {
 		Optional<Teacher> teacher = teacherRepository.findById((long) id);
-		if(teacher == null) {
-			return Optional.empty();
+		TeacherResponse response = new TeacherResponse();
+		if(teacher.isEmpty()) {
+			response.setMessage("Sorry, teacher does not exist");
+			response.setTeacher(null);
+			return response;
 		}
-		return teacher;
+		response.setMessage("teacher found");
+		Teacher foundTeacher = teacher.get();
+		response.setTeacher(foundTeacher);
+		return response;
 	}
 	
 	@Transactional
@@ -46,15 +56,21 @@ public class TeacherService {
 	
 	
 	@Transactional
-	//3- to save a teacher record
-	public Teacher saveOne(Teacher teacher) {
+	//3- to register a teacher record
+	public TeacherResponse teacherRegister(Teacher teacher) {
 		Teacher foundTeacher = teacherRepository.findByEmail(teacher.getEmail());
+		TeacherResponse response = new TeacherResponse();
 		if(foundTeacher == null) {
 			teacher.setPassword(passwordEncoder.encode(teacher.getPassword()));
 			teacher.setRole(Roles.TEACHER.getRole());
-			return teacherRepository.save(teacher);
+			 teacherRepository.save(teacher);
+			 response.setMessage("successfully registered!");
+			 response.setTeacher(teacher);
+			 return response;
 		}
-		return null;
+		response.setMessage("registration failed! teacher already exists");
+		response.setTeacher(null);
+		return response;
 	}
 	
 	@Transactional
@@ -68,13 +84,20 @@ public class TeacherService {
 	
 	@Transactional
 	//5- to delete a particular teacher
-	public Optional<Teacher> deleteOne(int id) {
+	public TeacherResponse deleteOne(int id) {
 		Optional<Teacher> teacher = teacherRepository.findById((long) id);
+		TeacherResponse response = new TeacherResponse();
 		if(teacher == null) {
-			return Optional.empty();
+			response.setMessage("delete failed! teacher does not exist");
+			response.setTeacher(null);
+			return response;
 		}
+		Teacher foundTeacher = teacher.get();
 		teacherRepository.deleteById((long) id);
-		return teacher;
+		response.setMessage("teacher deleted successfully");
+		response.setTeacher(foundTeacher);
+		return response;
+		
 	}
 	
 	//6- to delete a list of teachers
@@ -93,13 +116,48 @@ public class TeacherService {
 	
 	@Transactional
 	//7- to update a particular teacher
-	public Optional<Teacher> updateOne(Teacher teacher){
-		Optional<Teacher> foundTeacher = teacherRepository.findById((long) teacher.getId());
+	public TeacherResponse updateOne(Teacher teacher){
+		Teacher foundTeacher = teacherRepository.findByEmail(teacher.getEmail());
+		TeacherResponse response = new TeacherResponse();
 		if(foundTeacher == null) {
-			return Optional.empty();
+			response.setMessage("update failed! teacher not found");
+			response.setTeacher(null);
+			return response;
+			
 		}
 		teacherRepository.save(teacher);
-		return Optional.of(teacher);
+		response.setMessage("teacher updated successfully");
+		response.setTeacher(teacher);
+		return response;
+	}
+	
+	@Transactional
+	public TeacherResponse loadsUserByUsername(UsersDetails usersDetails) {
+		Teacher optionalTeacher = teacherRepository.findByEmail(usersDetails.getEmail());
+		TeacherResponse loginResponse = new TeacherResponse();
+		if(optionalTeacher == null) {
+			loginResponse.setMessage("email doesnt exist");
+			loginResponse.setTeacher(null);
+			return loginResponse;
+		}
+		Teacher teacher = optionalTeacher;
+		String password = usersDetails.getPassword();
+		String encodedPassword = teacher.getPassword();
+		
+		Boolean isPwdCorrect = passwordEncoder.matches(password, encodedPassword);
+		
+		if(isPwdCorrect) {
+//			List<GrantedAuthority> grantedAuthority = new ArrayList<>();
+//			grantedAuthority.add(new SimpleGrantedAuthority(student.getRole()));
+//			return new User(student.getEmail(), student.getPassword(), grantedAuthority);
+			loginResponse.setMessage("login successfull");
+			loginResponse.setTeacher(teacher);
+			return loginResponse;
+		}else {
+		loginResponse.setMessage("wrong password, please try again");
+		loginResponse.setTeacher(null);
+		return loginResponse;
+	}
 	}
 
 

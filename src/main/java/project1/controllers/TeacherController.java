@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import project1.data_transfer_objects.UsersDetails;
+import project1.data_transfer_objects.response_objects.StudentResponse;
+import project1.data_transfer_objects.response_objects.TeacherResponse;
 import project1.models.Classroom;
 import project1.models.Teacher;
 import project1.services.ClassroomService;
@@ -25,9 +29,16 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 	
+	
+	//0- to log a student in
+		@GetMapping("/teacher/login")
+		public TeacherResponse loginTeacher(@RequestBody UsersDetails usersDetails) {
+			return teacherService.loadsUserByUsername(usersDetails);
+		}
+	
 	//1- to get a single teacher record
 	@GetMapping("/teacher/id")
-	public Optional<Teacher> getOne(@RequestBody int id) {
+	public TeacherResponse getOne(@RequestParam int id) {
 		return teacherService.getOne(id);
 	}
 	
@@ -37,10 +48,10 @@ public class TeacherController {
 		return teacherService.getAll();
 	}
 	
-	//3- to save a single teacher record
+	//3- to register a single teacher record
 	@PostMapping("/teacher/register")
-	public Teacher save(@RequestBody Teacher teacher) {
-		return teacherService.saveOne(teacher);
+	public TeacherResponse save(@RequestBody Teacher teacher) {
+		return teacherService.teacherRegister(teacher);
 	}
 	
 	//4- to save a list of teachers
@@ -51,7 +62,7 @@ public class TeacherController {
 	
 	//5- to delete a single teacher record
 	@DeleteMapping("/teacher/delete")
-	public Optional<Teacher> deleteOne(@RequestBody int id) {
+	public TeacherResponse deleteOne(@RequestParam int id) {
 		return teacherService.deleteOne(id);
 	}
 	
@@ -63,7 +74,7 @@ public class TeacherController {
 	
 	//7- to update a teacher record
 	@PutMapping("/teacher/update")
-	public Optional<Teacher> updateOne(@RequestBody Teacher teacher){
+	public TeacherResponse updateOne(@RequestBody Teacher teacher){
 		return teacherService.updateOne(teacher);
 	}
 	

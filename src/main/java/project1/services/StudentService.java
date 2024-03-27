@@ -146,11 +146,12 @@ public class StudentService {
 	//7- update a student record in the database
 	@Transactional
 	public StudentResponse updateOne(Student student){
-		Student foundStudent = studentRepository.findByMatricule(student.getMatricule());
+		Student foundStudent = studentRepository.findByEmail(student.getEmail());
 		StudentResponse response = new StudentResponse();
 		if(foundStudent == null) {
-			response.setMessage("update failed! stydent does not exist");
+			response.setMessage("update failed! student does not exist");
 			response.setStudent(null);
+			return response;
 		}
 		studentRepository.save(student);
 		response.setMessage("student has been successfully updated");
@@ -160,7 +161,7 @@ public class StudentService {
 	}
 
 
-
+	@Transactional
 	public StudentResponse loadsUserByUsername(UsersDetails usersDetails) {
 		Student optionalStudent = studentRepository.findByEmail(usersDetails.getEmail());
 		StudentResponse loginResponse = new StudentResponse();
